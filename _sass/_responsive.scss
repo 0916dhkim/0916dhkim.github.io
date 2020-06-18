@@ -1,8 +1,17 @@
-@mixin media-md {
+@include media-md {
+    .projects__project {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-@mixin media-lg {
+@include media-lg {
+    .projects__project {
+        grid-template-columns: 1fr 2fr;
+    }
 }
 
-@mixin media-xl {
+@include media-xl {
+    .projects__project {
+        grid-template-columns: 1fr 3fr;
+    }
 }

@@ -12,7 +12,8 @@
         width: 80%;
         display: grid;
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 1rem 0 1rem 0;
+        gap: 1rem;
         border-top: 1px set-text-color($primary_color) solid;
         &__thumbnail {
             width: 100%;
