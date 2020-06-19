@@ -1,0 +1,131 @@
+.skills {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
+    &__title {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        width: 80%;
+    }
+    &__list {
+        width: 80%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 4rem);
+        grid-auto-rows: 4rem;
+        gap: 0.5rem;
+        justify-items: stretch;
+        align-items: stretch;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-blend-mode: saturation;
+        color: transparent;
+        @include transition-ease;
+        &:hover {
+            background-image: none;
+            color: $secondary-color;
+        }
+        &--typescript {
+            background-image: url("/assets/img/logo/typescript.png");
+            &::after {
+                content: "TypeScript";
+            }
+        }
+        &--react {
+            background-image: url("/assets/img/logo/react.svg");
+            &::after {
+                content: "React";
+            }
+        }
+        &--webpack {
+            background-image: url("/assets/img/logo/webpack.svg");
+            &::after {
+                content: "Webpack";
+            }
+        }
+        &--rust {
+            background-image: url("/assets/img/logo/rust.svg");
+            &::after {
+                content: "Rust";
+            }
+        }
+        &--postgres {
+            background-image: url("/assets/img/logo/postgres.png");
+            &::after {
+                content: "PostgreSQL";
+            }
+        }
+        &--docker {
+            background-image: url("/assets/img/logo/docker.png");
+            &::after {
+                content: "Docker";
+            }
+        }
+        &--vim {
+            background-image: url("/assets/img/logo/vim.svg");
+            &::after {
+                content: "Vim";
+            }
+        }
+        &--vscode {
+            background-image: url("/assets/img/logo/vscode.svg");
+            &::after {
+                content: "Visual Studio Code";
+            }
+        }
+        &--electron {
+            background-image: url("/assets/img/logo/electron.svg");
+            &::after {
+                content: "Electron";
+            }
+        }
+        &--android {
+            background-image: url("/assets/img/logo/android.svg");
+            &::after {
+                content: "Android";
+            }
+        }
+        &--heroku {
+            background-image: url("/assets/img/logo/heroku.svg");
+            &::after {
+                content: "Heroku";
+            }
+        }
+        &--python {
+            background-image: url("/assets/img/logo/python.svg");
+            &::after {
+                content: "Python";
+            }
+        }
+        &--cpp {
+            background-image: url("/assets/img/logo/cpp.svg");
+            &::after {
+                content: "C++";
+            }
+        }
+        &--mocha {
+            background-image: url("/assets/img/logo/mocha.svg");
+            &::after {
+                content: "Mocha";
+            }
+        }
+        &--git {
+            background-image: url("/assets/img/logo/git.png");
+            &::after {
+                content: "Git";
+            }
+        }
+        &--linux {
+            background-image: url("/assets/img/logo/linux.svg");
+            &::after {
+                content: "Linux";
+            }
+        }
+    }
+}
