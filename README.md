@@ -1,39 +1,34 @@
-# Jekyll
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Summary
+## Getting Started
 
-*Develop static sites with Jekyll, includes everything you need to get up and running.*
+First, run the development server:
 
-| Metadata | Value |  
-|----------|-------|
-| *Contributors* | [Carlos Mendible](https://github.com/cmendible) |
-| *Definition type* | Dockerfile |
-| *Works in Codespaces* | Yes |
-| *Container host OS support* | Linux, macOS, Windows |
-| *Languages, platforms* | Ruby, Jekyll |
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Using this definition with an existing folder
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Follow these steps:
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-1. If this is your first time using a development container, please follow the [getting started steps](https://aka.ms/vscode-remote/containers/getting-started) to set up your machine.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-2. To use VS Code's copy of this definition:
-   1. Start VS Code and open your project folder.
-   2. Press <kbd>F1</kbd> select and **Remote-Containers: Add Development Container Configuration Files...** from the command palette.
-   3. Select the Jekyll definition.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-3. To use latest-and-greatest copy of this definition from the repository:
-   1. Clone this repository.
-   2. Copy the contents of `containers/jekyll/.devcontainer` to the root of your project folder.
-   3. Start VS Code and open your project folder.
+## Learn More
 
-4. After following step 2 or 3, the contents of the `.devcontainer` folder in your project can be adapted to meet your needs.
+To learn more about Next.js, take a look at the following resources:
 
-5. Finally, press <kbd>F1</kbd> and run **Remote-Containers: Reopen Folder in Container** to start using the definition.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## License
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+## Deploy on Vercel
 
-Licensed under the MIT License. See [LICENSE](https://github.com/Microsoft/vscode-dev-containers/blob/master/LICENSE).
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
