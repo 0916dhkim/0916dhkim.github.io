@@ -8,6 +8,7 @@ export type MetaData = {
   slug: string;
   title: string;
   content: string;
+  summary: string;
   date: string;
 };
 
@@ -46,6 +47,9 @@ function validateMetaData(metaData: unknown): MetaData {
     throw new Error("Metadata does not have path key.");
   }
   if (!hasStringProperty(metaData, "content")) {
+    throw new Error("Metadata does not have content key.");
+  }
+  if (!hasStringProperty(metaData, "summary")) {
     throw new Error("Metadata does not have content key.");
   }
   return metaData;
