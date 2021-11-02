@@ -6,12 +6,25 @@ import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
+import { createUseStyles } from "react-jss";
 
 type Props = {
   article: MetaData;
   appInfo: AppInfo;
 };
 type Params = { slug: string };
+
+const useStyles = createUseStyles((theme) => ({
+  container: {
+    minWidth: "100vw",
+    height: "100vh",
+    backgroundColor: theme.palette.background,
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+  },
+}));
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   return {
@@ -35,13 +48,16 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   return { props: { article, appInfo } };
 };
 const Article = ({ article, appInfo }: Props) => {
+  const classes = useStyles();
   return (
     <>
       <CommonHead appInfo={appInfo} />
       <Head>
         <title>{article.title}</title>
       </Head>
-      <ReactMarkdown>{article.content}</ReactMarkdown>
+      <main>
+        <ReactMarkdown>{article.content}</ReactMarkdown>
+      </main>
     </>
   );
 };
