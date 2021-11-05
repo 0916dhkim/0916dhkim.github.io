@@ -24,6 +24,39 @@ const useStyles = createUseStyles((theme) => ({
     flexDirection: "column",
     gap: "1rem",
   },
+  markdown: {
+    maxWidth: 800,
+    alignSelf: "center",
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    "& p": {
+      marginTop: 8,
+    },
+    "& h2,h3": {
+      marginTop: 16,
+    },
+    "& ul,ol": {
+      marginTop: 8,
+      paddingLeft: 24,
+    },
+    "& blockquote": {
+      background: theme.palette.paper,
+      boxShadow: theme.shadow,
+      padding: "0.5rem",
+      margin: "0.75rem 0",
+      "& p": {
+        margin: 0,
+      },
+    },
+    "& pre": {
+      margin: "0.75rem 0",
+      padding: "1rem",
+      overflowX: "auto",
+      background: theme.palette.paper,
+      boxShadow: theme.shadow,
+    },
+  },
 }));
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
@@ -55,9 +88,9 @@ const Article = ({ article, appInfo }: Props) => {
       <Head>
         <title>{article.title}</title>
       </Head>
-      <main>
-        <ReactMarkdown>{article.content}</ReactMarkdown>
-      </main>
+      <ReactMarkdown className={classes.markdown}>
+        {article.content}
+      </ReactMarkdown>
     </>
   );
 };

@@ -2,10 +2,9 @@ import { Header } from "./shared/Header";
 import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles((theme) => ({
   container: {
-    minWidth: "100vw",
-    height: "100vh",
+    minHeight: "100vh",
     backgroundColor: theme.palette.background,
-    padding: "1rem",
+    padding: "3rem",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",

@@ -24,7 +24,7 @@ export const LIGHT_THEME: Jss.Theme = {
     background: "#F5F5F5",
     paper: "white",
   },
-  shadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  shadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
 };
 export const DARK_THEME: Jss.Theme = {
   ...LIGHT_THEME,
