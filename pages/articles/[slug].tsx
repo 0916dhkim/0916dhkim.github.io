@@ -7,6 +7,7 @@ import Head from "next/head";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { createUseStyles } from "react-jss";
+import { useHighlight } from "lib/highlight";
 
 type Props = {
   article: MetaData;
@@ -51,7 +52,6 @@ const useStyles = createUseStyles((theme) => ({
     },
     "& pre": {
       margin: "0.75rem 0",
-      padding: "1rem",
       overflowX: "auto",
       background: theme.palette.paper,
       boxShadow: theme.shadow,
@@ -82,6 +82,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 };
 const Article = ({ article, appInfo }: Props) => {
   const classes = useStyles();
+  useHighlight();
   return (
     <>
       <CommonHead appInfo={appInfo} />
