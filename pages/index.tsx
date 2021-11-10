@@ -1,5 +1,5 @@
 import { AppInfo, getAppInfo } from "lib/appInfo";
-import { MetaData, getAllMetadata } from "lib/articles";
+import { Metadata, getAllMetadata } from "lib/articles";
 
 import { ArticleList } from "components/home/ArticleList";
 import { CommonHead } from "components/CommonHead";
@@ -7,7 +7,7 @@ import type { GetStaticProps } from "next";
 
 type Props = {
   appInfo: AppInfo;
-  metadataList: MetaData[];
+  metadataList: Metadata[];
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {

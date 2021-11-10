@@ -4,7 +4,7 @@ import { hasStringProperty } from "./typeutils";
 import matter from "gray-matter";
 import path from "path";
 
-export type MetaData = {
+export type Metadata = {
   slug: string;
   title: string;
   content: string;
@@ -25,7 +25,7 @@ function toSlug(filename: string): string {
   return path.basename(filename).replace(/\.md$/, "");
 }
 
-async function fileToMetadata(filename: string): Promise<MetaData> {
+async function fileToMetadata(filename: string): Promise<Metadata> {
   const filecontent = await readFile(filename);
   const parsed = matter(filecontent);
   const metaData = validateMetaData({
@@ -36,7 +36,7 @@ async function fileToMetadata(filename: string): Promise<MetaData> {
   return metaData;
 }
 
-function validateMetaData(metaData: unknown): MetaData {
+function validateMetaData(metaData: unknown): Metadata {
   if (!hasStringProperty(metaData, "title")) {
     throw new Error("Metadata does not have title key.");
   }
@@ -55,7 +55,7 @@ function validateMetaData(metaData: unknown): MetaData {
   return metaData;
 }
 
-export async function getAllMetadata(): Promise<MetaData[]> {
+export async function getAllMetadata(): Promise<Metadata[]> {
   const articleFiles = fs
     .readdirSync(ARTICLES_FOLDER)
     .map((relativepath) => path.join(ARTICLES_FOLDER, relativepath));
@@ -63,7 +63,7 @@ export async function getAllMetadata(): Promise<MetaData[]> {
   return Promise.all(articleFiles.map(fileToMetadata));
 }
 
-export async function getArticleBySlug(slug: string): Promise<MetaData> {
+export async function getArticleBySlug(slug: string): Promise<Metadata> {
   const filename = path.join(ARTICLES_FOLDER, slug + ".md");
   return fileToMetadata(filename);
 }

@@ -1,6 +1,6 @@
 import { AppInfo, getAppInfo } from "lib/appInfo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { MetaData, getAllMetadata, getArticleBySlug } from "lib/articles";
+import { Metadata, getAllMetadata, getArticleBySlug } from "lib/articles";
 
 import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
@@ -10,7 +10,7 @@ import { createUseStyles } from "react-jss";
 import { useHighlight } from "lib/highlight";
 
 type Props = {
-  article: MetaData;
+  article: Metadata;
   appInfo: AppInfo;
 };
 type Params = { slug: string };

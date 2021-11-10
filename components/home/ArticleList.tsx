@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MetaData } from "lib/articles";
+import { Metadata } from "lib/articles";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme) => ({
@@ -32,7 +32,7 @@ const useStyles = createUseStyles((theme) => ({
 }));
 
 type ListItemProps = {
-  metadata: MetaData;
+  metadata: Metadata;
 };
 
 const ListItem = ({ metadata }: ListItemProps) => {
@@ -51,7 +51,7 @@ const ListItem = ({ metadata }: ListItemProps) => {
 };
 
 type Props = {
-  metadatList: MetaData[];
+  metadatList: Metadata[];
 };
 export const ArticleList = ({ metadatList }: Props): React.ReactElement => {
   const classes = useStyles();
