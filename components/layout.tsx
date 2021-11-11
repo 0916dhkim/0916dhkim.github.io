@@ -4,10 +4,14 @@ const useStyles = createUseStyles((theme) => ({
   container: {
     minHeight: "100vh",
     backgroundColor: theme.palette.background,
-    padding: "3rem",
     display: "flex",
     flexDirection: "column",
-    gap: "1rem",
+    gap: "2rem",
+  },
+  main: {
+    padding: "0 3rem 3rem 3rem",
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
@@ -16,8 +20,7 @@ export const Layout: React.FC = ({ children }) => {
   return (
     <div className={classes.container}>
       <Header />
-      <hr />
-      {children}
+      <main className={classes.main}>{children}</main>
     </div>
   );
 };

@@ -3,11 +3,16 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme) => ({
   header: {
+    position: "sticky",
+    top: 0,
+    background: theme.palette.background,
+    padding: "1rem",
     display: "flex",
     gap: "0.5rem",
-    flexDirection: "column",
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    boxShadow: theme.shadow,
   },
   navbar: {
     display: "flex",
