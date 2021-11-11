@@ -5,7 +5,8 @@ const useStyles = createUseStyles((theme) => ({
   header: {
     position: "sticky",
     top: 0,
-    background: theme.palette.background,
+    background: theme.palette.primary,
+    color: theme.palette.white,
     padding: "1rem",
     display: "flex",
     gap: "0.5rem",
@@ -53,7 +54,7 @@ export const Header = (): React.ReactElement => {
   const classes = useStyles();
   return (
     <header className={classes.header}>
-      <h1>{"Danny's Blog"}</h1>
+      <h1>{"danny.blog"}</h1>
       <Navbar />
     </header>
   );

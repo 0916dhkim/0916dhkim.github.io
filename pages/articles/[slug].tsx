@@ -16,15 +16,6 @@ type Props = {
 type Params = { slug: string };
 
 const useStyles = createUseStyles((theme) => ({
-  container: {
-    minWidth: "100vw",
-    height: "100vh",
-    backgroundColor: theme.palette.background,
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-  },
   markdown: {
     maxWidth: 800,
     alignSelf: "center",
@@ -34,7 +25,16 @@ const useStyles = createUseStyles((theme) => ({
     "& p": {
       marginTop: 8,
     },
-    "& h2,h3": {
+    "& h1": {
+      color: theme.palette.secondary,
+    },
+    "& h2": {
+      color: theme.palette.secondary,
+      marginTop: 16,
+      borderBottom: "3px solid",
+    },
+    "& h3": {
+      color: theme.palette.secondary,
       marginTop: 16,
     },
     "& ul,ol": {

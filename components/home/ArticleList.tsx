@@ -17,6 +17,9 @@ const useStyles = createUseStyles((theme) => ({
     backgroundColor: theme.palette.paper,
     boxShadow: theme.shadow,
   },
+  title: {
+    color: theme.palette.primary,
+  },
   summary: {
     flex: 1,
     overflow: "hidden",
@@ -26,6 +29,7 @@ const useStyles = createUseStyles((theme) => ({
     boxOrient: "vertical",
   },
   date: {
+    color: theme.palette.secondary,
     alignSelf: "end",
     fontSize: "0.875rem",
   },
@@ -41,7 +45,7 @@ const ListItem = ({ metadata }: ListItemProps) => {
     <div className={classes.item}>
       <Link href={`articles/${metadata.slug}`}>
         <a>
-          <h3>{metadata.title}</h3>
+          <h3 className={classes.title}>{metadata.title}</h3>
         </a>
       </Link>
       <p className={classes.summary}>{metadata.summary}</p>
