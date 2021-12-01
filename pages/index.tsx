@@ -1,10 +1,12 @@
 import { AppInfo, getAppInfo } from "lib/appInfo";
-import { Post, PrismaClient } from "@prisma/client";
 import { SerializedPost, serializePost } from "lib/postUtils";
 
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
+import { PrismaClient } from "@prisma/client";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 type Props = {
   appInfo: AppInfo;
@@ -28,6 +30,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 const Home = ({ appInfo, posts }: Props) => {
+  const router = useRouter();
+  const { type, access_token: accessToken } = router.query;
+
+  useEffect(() => {
+    if (type === "recovery") {
+      router.push(`/reset-password?access_token=${accessToken}`);
+    }
+  }, [type, accessToken, router]);
+
   return (
     <>
       <CommonHead appInfo={appInfo} />
