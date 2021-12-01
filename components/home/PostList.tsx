@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Metadata } from "lib/articles";
+import { SerializedPost } from "lib/postUtils";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme) => ({
@@ -36,33 +36,35 @@ const useStyles = createUseStyles((theme) => ({
 }));
 
 type ListItemProps = {
-  metadata: Metadata;
+  post: SerializedPost;
 };
 
-const ListItem = ({ metadata }: ListItemProps) => {
+const ListItem = ({ post: post }: ListItemProps) => {
   const classes = useStyles();
   return (
     <div className={classes.item}>
-      <Link href={`articles/${metadata.slug}`}>
+      <Link href={`posts/${post.id}`}>
         <a>
-          <h3 className={classes.title}>{metadata.title}</h3>
+          <h3 className={classes.title}>{post.title}</h3>
         </a>
       </Link>
-      <p className={classes.summary}>{metadata.summary}</p>
-      <span className={classes.date}>{metadata.date}</span>
+      <p className={classes.summary}>
+        {post.summary ?? post.content.substring(0, 100)}
+      </p>
+      <span className={classes.date}>{post.createdAt}</span>
     </div>
   );
 };
 
 type Props = {
-  metadatList: Metadata[];
+  posts: SerializedPost[];
 };
-export const ArticleList = ({ metadatList }: Props): React.ReactElement => {
+export const PostList = ({ posts }: Props): React.ReactElement => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      {metadatList.map((metadata) => (
-        <ListItem key={metadata.slug} metadata={metadata} />
+      {posts.map((post) => (
+        <ListItem key={post.id} post={post} />
       ))}
     </div>
   );
