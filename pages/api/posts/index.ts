@@ -1,16 +1,12 @@
+import { buildHandler, isAuth } from "lib/apiUtils";
+
 import { NextApiHandler } from "next";
 import { PrismaClient } from "@prisma/client";
-import { buildHandler } from "lib/apiUtils";
-import { supabase } from "lib/supabase";
 
 const postsHandler: NextApiHandler = buildHandler({
   GET: async (req, res) => {
     const prisma = new PrismaClient();
-    const token = req.headers.authorization?.replace(/^Bearer /, "");
-    if (!token) {
-      return res.status(401).send("Unauthorized");
-    }
-    if (!(await supabase.auth.api.getUser(token))) {
+    if (!isAuth(req)) {
       return res.status(401).send("Unauthorized");
     }
 
@@ -20,11 +16,7 @@ const postsHandler: NextApiHandler = buildHandler({
   },
   POST: async (req, res) => {
     const prisma = new PrismaClient();
-    const token = req.headers.authorization?.replace(/^Bearer /, "");
-    if (!token) {
-      return res.status(401).send("Unauthorized");
-    }
-    if (!(await supabase.auth.api.getUser(token))) {
+    if (!isAuth(req)) {
       return res.status(401).send("Unauthorized");
     }
 

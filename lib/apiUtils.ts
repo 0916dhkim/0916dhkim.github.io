@@ -1,4 +1,6 @@
-import { NextApiHandler } from "next";
+import { NextApiHandler, NextApiRequest } from "next";
+
+import { supabase } from "lib/supabase";
 
 export function buildHandler(
   handlers: Record<string, NextApiHandler>
@@ -15,4 +17,15 @@ export function buildHandler(
 
     return handler(req, res);
   };
+}
+
+export async function isAuth(req: NextApiRequest): Promise<boolean> {
+  const token = req.headers.authorization?.replace(/^Bearer /, "");
+  if (!token) {
+    return false;
+  }
+  if (!(await supabase.auth.api.getUser(token))) {
+    return false;
+  }
+  return true;
 }
