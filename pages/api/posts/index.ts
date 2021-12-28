@@ -1,36 +1,39 @@
 import { NextApiHandler } from "next";
 import { PrismaClient } from "@prisma/client";
+import { buildHandler } from "lib/apiUtils";
 import { supabase } from "lib/supabase";
 
-const postsHandler: NextApiHandler = async (req, res) => {
-  const prisma = new PrismaClient();
-  const token = req.headers.authorization?.replace(/^Bearer /, "");
-  if (!token) {
-    return res.status(401).send("Unauthorized");
-  }
-  if (!(await supabase.auth.api.getUser(token))) {
-    return res.status(401).send("Unauthorized");
-  }
-
-  switch (req.method) {
-    case "GET": {
-      res.send({
-        posts: await prisma.post.findMany(),
-      });
-      break;
+const postsHandler: NextApiHandler = buildHandler({
+  GET: async (req, res) => {
+    const prisma = new PrismaClient();
+    const token = req.headers.authorization?.replace(/^Bearer /, "");
+    if (!token) {
+      return res.status(401).send("Unauthorized");
     }
-    case "POST": {
-      const post = await prisma.post.create({
-        data: req.body,
-      });
-
-      res.send({ post });
-      break;
+    if (!(await supabase.auth.api.getUser(token))) {
+      return res.status(401).send("Unauthorized");
     }
-    default:
-      res.status(405).send(`Method ${req.method} not allowed.`);
-      break;
-  }
-};
+
+    res.send({
+      posts: await prisma.post.findMany(),
+    });
+  },
+  POST: async (req, res) => {
+    const prisma = new PrismaClient();
+    const token = req.headers.authorization?.replace(/^Bearer /, "");
+    if (!token) {
+      return res.status(401).send("Unauthorized");
+    }
+    if (!(await supabase.auth.api.getUser(token))) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    const post = await prisma.post.create({
+      data: req.body,
+    });
+
+    res.send({ post });
+  },
+});
 
 export default postsHandler;
