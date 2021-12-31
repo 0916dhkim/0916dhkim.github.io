@@ -1,19 +1,20 @@
 import { AppInfo, getAppInfo } from "lib/appInfo";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Metadata, getAllMetadata, getArticleBySlug } from "lib/articles";
+import { SerializedPost, serializePost } from "lib/postUtils";
 
 import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
+import { PrismaClient } from "@prisma/client";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { createUseStyles } from "react-jss";
 import { useHighlight } from "lib/highlight";
 
 type Props = {
-  article: Metadata;
+  post: SerializedPost;
   appInfo: AppInfo;
 };
-type Params = { slug: string };
+type Params = { id: string };
 
 const useStyles = createUseStyles((theme) => ({
   markdown: {
@@ -60,12 +61,15 @@ const useStyles = createUseStyles((theme) => ({
 }));
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const prisma = new PrismaClient();
   return {
-    paths: (await getAllMetadata()).map((metaData) => ({
-      params: {
-        slug: metaData.slug,
-      },
-    })),
+    paths: (await prisma.post.findMany({ select: { id: true } })).map(
+      (post) => ({
+        params: {
+          id: post.id,
+        },
+      })
+    ),
     fallback: false,
   };
 };
@@ -73,25 +77,26 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
-  const slug = params?.slug;
-  assert(slug, "No slug params.");
-  const article = await getArticleBySlug(slug);
+  const prisma = new PrismaClient();
+  assert(params?.id, "Missing id url parameter.");
+  const post = await prisma.post.findUnique({
+    where: { id: params.id },
+  });
+  assert(post, `Cannot find post ${params.id}`);
   const appInfo = getAppInfo();
 
-  return { props: { article, appInfo } };
+  return { props: { post: serializePost(post), appInfo } };
 };
-const Article = ({ article, appInfo }: Props) => {
+const Article = ({ post, appInfo }: Props) => {
   const classes = useStyles();
   useHighlight();
   return (
     <>
       <CommonHead appInfo={appInfo} />
       <Head>
-        <title>{article.title}</title>
+        <title>{post.title}</title>
       </Head>
-      <ReactMarkdown className={classes.markdown}>
-        {article.content}
-      </ReactMarkdown>
+      <ReactMarkdown className={classes.markdown}>{post.content}</ReactMarkdown>
     </>
   );
 };
