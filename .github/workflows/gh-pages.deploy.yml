@@ -21,7 +21,7 @@ jobs:
       - name: Migrate DB
         run: yarn workspace @0916dhkim/prisma-shared prisma migrate deploy
   pages:
-    needs: db
+    needs: prisma
     runs-on: ubuntu-latest
     steps:
       - name: Build pages
