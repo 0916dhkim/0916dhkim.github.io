@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  yarn:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,16 +14,24 @@ jobs:
           node-version: "14.x"
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - name: Build Project
-        run: yarn next build
+  prisma:
+    needs: dependencies
+    runs-on: ubuntu-latest
+    steps:
       - name: Migrate DB
-        run: yarn prisma migrate deploy
+        run: yarn workspace @0916dhkim/prisma-shared prisma migrate deploy
+  pages:
+    needs: db
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build pages
+        run: yarn workspace @0916dhkim/gh-pages next build
       - name: Export Static Files
-        run: yarn next export
+        run: yarn workspace @0916dhkim/gh-pages next export
       - name: Add .nojekyll File
-        run: touch ./out/.nojekyll
-      - name: Deploy
+        run: touch ./gh-pages/out/.nojekyll
+      - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
-          folder: out
+          folder: gh-pages/out

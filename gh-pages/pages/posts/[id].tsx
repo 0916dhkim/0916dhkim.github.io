@@ -4,7 +4,7 @@ import { SerializedPost, serializePost } from "lib/postUtils";
 
 import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@0916dhkim/prisma-shared";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { createUseStyles } from "react-jss";

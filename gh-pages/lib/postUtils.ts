@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+import { Post } from "@0916dhkim/prisma-shared";
 
 export type SerializedPost = Pick<
   Post,

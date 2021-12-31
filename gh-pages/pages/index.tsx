@@ -4,7 +4,7 @@ import { SerializedPost, serializePost } from "lib/postUtils";
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@0916dhkim/prisma-shared";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
