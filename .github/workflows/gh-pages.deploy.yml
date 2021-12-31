@@ -16,6 +16,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build Project
         run: yarn next build
+      - name: Migrate DB
+        run: yarn prisma migrate deploy
       - name: Export Static Files
         run: yarn next export
       - name: Add .nojekyll File
