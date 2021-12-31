@@ -1,11 +1,12 @@
 import "../styles/globals.css";
+import "highlight.js/styles/github-dark.css";
 
 import {
   DARK_THEME,
   LIGHT_THEME,
   ThemeTypeProvider,
   useThemeType,
-} from "lib/theme";
+} from "@0916dhkim/core";
 
 import type { AppProps } from "next/app";
 import { Layout } from "components/layout";

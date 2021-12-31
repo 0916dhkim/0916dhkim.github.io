@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SerializedPost } from "lib/postUtils";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme) => ({
@@ -36,35 +35,43 @@ const useStyles = createUseStyles((theme) => ({
 }));
 
 type ListItemProps = {
-  post: SerializedPost;
+  id: string;
+  title: string;
+  content: string;
+  summary?: string;
+  createdAt: string;
 };
 
-const ListItem = ({ post: post }: ListItemProps) => {
+const ListItem = ({
+  id,
+  title,
+  content,
+  summary,
+  createdAt,
+}: ListItemProps) => {
   const classes = useStyles();
   return (
     <div className={classes.item}>
-      <Link href={`posts/${post.id}`}>
+      <Link href={`posts/${id}`}>
         <a>
-          <h3 className={classes.title}>{post.title}</h3>
+          <h3 className={classes.title}>{title}</h3>
         </a>
       </Link>
-      <p className={classes.summary}>
-        {post.summary ?? post.content.substring(0, 100)}
-      </p>
-      <span className={classes.date}>{post.createdAt}</span>
+      <p className={classes.summary}>{summary ?? content.substring(0, 100)}</p>
+      <span className={classes.date}>{createdAt}</span>
     </div>
   );
 };
 
 type Props = {
-  posts: SerializedPost[];
+  posts: ListItemProps[];
 };
 export const PostList = ({ posts }: Props): React.ReactElement => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
       {posts.map((post) => (
-        <ListItem key={post.id} post={post} />
+        <ListItem key={post.id} {...post} />
       ))}
     </div>
   );

@@ -2,8 +2,7 @@
   "private": true,
   "name": "blog-monorepo",
   "workspaces": [
-    "gh-pages",
-    "editor",
-    "prisma-shared"
+    "apps/*",
+    "libs/*"
   ]
 }

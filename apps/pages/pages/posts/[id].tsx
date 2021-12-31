@@ -1,19 +1,23 @@
-import { AppInfo, getAppInfo } from "lib/appInfo";
+import * as z from "zod";
+
 import { GetStaticPaths, GetStaticProps } from "next";
-import { SerializedPost, serializePost } from "lib/postUtils";
 
 import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
-import { PrismaClient } from "@0916dhkim/prisma-shared";
+import { PrismaClient } from "@0916dhkim/prisma";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { createUseStyles } from "react-jss";
-import { useHighlight } from "lib/highlight";
+import { useHighlight } from "@0916dhkim/core";
 
-type Props = {
-  post: SerializedPost;
-  appInfo: AppInfo;
-};
+const propsSchema = z.object({
+  post: z.object({
+    id: z.string(),
+    title: z.string(),
+    content: z.string(),
+  }),
+});
+type Props = z.infer<typeof propsSchema>;
 type Params = { id: string };
 
 const useStyles = createUseStyles((theme) => ({
@@ -82,17 +86,18 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const post = await prisma.post.findUnique({
     where: { id: params.id },
   });
-  assert(post, `Cannot find post ${params.id}`);
-  const appInfo = getAppInfo();
+  if (post === null) {
+    return { notFound: true };
+  }
 
-  return { props: { post: serializePost(post), appInfo } };
+  return { props: propsSchema.parse(post) };
 };
-const Article = ({ post, appInfo }: Props) => {
+const Article = ({ post }: Props) => {
   const classes = useStyles();
   useHighlight();
   return (
     <>
-      <CommonHead appInfo={appInfo} />
+      <CommonHead />
       <Head>
         <title>{post.title}</title>
       </Head>

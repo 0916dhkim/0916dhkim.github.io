@@ -1,5 +1,5 @@
 {
-  "name": "@0916dhkim/prisma-shared",
+  "name": "@0916dhkim/prisma",
   "version": "0.0.0",
   "main": "src/index.ts",
   "dependencies": {

@@ -1,35 +1,41 @@
-import { AppInfo, getAppInfo } from "lib/appInfo";
-import { SerializedPost, serializePost } from "lib/postUtils";
+import * as z from "zod";
 
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
-import { PrismaClient } from "@0916dhkim/prisma-shared";
+import { PrismaClient } from "@0916dhkim/prisma";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-type Props = {
-  appInfo: AppInfo;
-  posts: SerializedPost[];
-};
+const propsSchema = z.object({
+  posts: z
+    .object({
+      id: z.string(),
+      title: z.string(),
+      content: z.string(),
+      summary: z.string().optional(),
+      createdAt: z.date(),
+    })
+    .transform((post) => ({ ...post, createdAt: post.createdAt.toISOString() }))
+    .array(),
+});
+
+type Props = z.infer<typeof propsSchema>;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const prisma = new PrismaClient();
   return {
-    props: {
-      appInfo: getAppInfo(),
-      posts: (
-        await prisma.post.findMany({
-          where: {
-            published: false,
-          },
-        })
-      ).map(serializePost),
-    },
+    props: propsSchema.parse({
+      posts: await prisma.post.findMany({
+        where: {
+          published: false,
+        },
+      }),
+    }),
   };
 };
 
-const Home = ({ appInfo, posts }: Props) => {
+const Home = ({ posts }: Props) => {
   const router = useRouter();
   const { type, access_token: accessToken } = router.query;
 
@@ -41,7 +47,7 @@ const Home = ({ appInfo, posts }: Props) => {
 
   return (
     <>
-      <CommonHead appInfo={appInfo} />
+      <CommonHead />
       <PostList posts={posts} />
     </>
   );

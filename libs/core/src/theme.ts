@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Augment global theme.
 declare global {
   namespace Jss {
     export interface Theme {
@@ -43,10 +42,10 @@ const ThemeTypeContext = React.createContext<ThemeTypeContext>({
 
 export const ThemeTypeProvider: React.FC = ({ children }) => {
   const [themeType, setThemeType] = useState<ThemeType>("light");
-  return (
-    <ThemeTypeContext.Provider value={{ themeType, setThemeType }}>
-      {children}
-    </ThemeTypeContext.Provider>
+  return React.createElement(
+    ThemeTypeContext.Provider,
+    { value: { themeType, setThemeType } },
+    children
   );
 };
 export const useThemeType = () => React.useContext(ThemeTypeContext);
