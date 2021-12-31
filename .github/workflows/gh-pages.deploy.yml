@@ -15,7 +15,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
   prisma:
-    needs: dependencies
+    needs: yarn
     runs-on: ubuntu-latest
     steps:
       - name: Migrate DB
