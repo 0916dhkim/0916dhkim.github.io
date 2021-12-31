@@ -21,13 +21,13 @@ jobs:
       - name: Build core lib
         run: yarn workspace @0916dhkim/core tsc
       - name: Build pages
-        run: yarn workspace @0916dhkim/gh-pages next build
+        run: yarn workspace @0916dhkim/pages next build
       - name: Export Static Files
-        run: yarn workspace @0916dhkim/gh-pages next export
+        run: yarn workspace @0916dhkim/pages next export
       - name: Add .nojekyll File
-        run: touch ./gh-pages/out/.nojekyll
+        run: touch ./apps/pages/out/.nojekyll
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
-          folder: gh-pages/out
+          folder: apps/pages/out
