@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  yarn:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,16 +14,8 @@ jobs:
           node-version: "14.x"
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-  prisma:
-    needs: yarn
-    runs-on: ubuntu-latest
-    steps:
       - name: Migrate DB
         run: yarn workspace @0916dhkim/prisma-shared prisma migrate deploy
-  pages:
-    needs: prisma
-    runs-on: ubuntu-latest
-    steps:
       - name: Build pages
         run: yarn workspace @0916dhkim/gh-pages next build
       - name: Export Static Files
