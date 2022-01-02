@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
 import { useCallback } from "react";
+import { useRouter } from "next/router";
+import { useSupabase } from "@0916dhkim/core";
 const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
 
 const useStyles = createUseStyles((theme) => ({
@@ -27,8 +29,15 @@ const useStyles = createUseStyles((theme) => ({
 
 const Home: NextPage = () => {
   const classes = useStyles();
+  const supabase = useSupabase();
+  const router = useRouter();
 
   const handleContentChange = useCallback((value: string) => {}, []);
+
+  if (supabase.auth.session() === null) {
+    router.replace("/login");
+  }
+
   return (
     <>
       <Head>
@@ -57,4 +66,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default dynamic(() => Promise.resolve(Home), { ssr: false });

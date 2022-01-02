@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import {
   DARK_THEME,
   LIGHT_THEME,
+  SupabaseProvider,
   ThemeTypeProvider,
   useThemeType,
 } from "@0916dhkim/core";
@@ -13,9 +14,11 @@ import { ThemeProvider } from "react-jss";
 function Inner({ pageProps, Component }: AppProps) {
   const { themeType } = useThemeType();
   return (
-    <ThemeProvider theme={themeType === "light" ? LIGHT_THEME : DARK_THEME}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <SupabaseProvider>
+      <ThemeProvider theme={themeType === "light" ? LIGHT_THEME : DARK_THEME}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </SupabaseProvider>
   );
 }
 
