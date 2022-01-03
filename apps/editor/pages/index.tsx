@@ -1,10 +1,12 @@
+import { useRef, useState } from "react";
+
 import Head from "next/head";
 import type { NextPage } from "next";
 import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
-import { useCallback } from "react";
 import { useRouter } from "next/router";
 import { useSupabase } from "@0916dhkim/core";
+
 const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
 
 const useStyles = createUseStyles((theme) => ({
@@ -32,11 +34,30 @@ const Home: NextPage = () => {
   const supabase = useSupabase();
   const router = useRouter();
 
-  const handleContentChange = useCallback((value: string) => {}, []);
+  const [title, setTitle] = useState("");
+  const [language, setLanguage] = useState("EN");
+  const [summary, setSummary] = useState("");
+  const contentRef = useRef("");
 
   if (supabase.auth.session() === null) {
     router.replace("/login");
   }
+
+  const handleSubmit = async () => {
+    const response = await fetch("/api/post", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${supabase.auth.session()?.access_token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        language,
+        summary,
+        content: contentRef.current,
+      }),
+    });
+  };
 
   return (
     <>
@@ -50,17 +71,30 @@ const Home: NextPage = () => {
         <h1>New Post</h1>
         <div className={classes.formgrid}>
           <span>Title</span>
-          <input type="text" />
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <span>Language</span>
-          <select>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
             <option value="EN">EN</option>
             <option value="KR">KR</option>
           </select>
           <span>Summary</span>
-          <input type="text" />
+          <input
+            type="text"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+          />
         </div>
-        <Editor onChange={handleContentChange} />
-        <button className={classes.submit}>Publish</button>
+        <Editor valueRef={contentRef} />
+        <button className={classes.submit} onClick={handleSubmit}>
+          Publish
+        </button>
       </main>
     </>
   );

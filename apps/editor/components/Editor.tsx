@@ -1,12 +1,12 @@
 import { EditorView, ViewPlugin, ViewUpdate } from "@codemirror/view";
-import React, { useState } from "react";
+import React, { MutableRefObject, useState } from "react";
 
 import { EditorState } from "@codemirror/state";
 import { basicSetup } from "@codemirror/basic-setup";
 import { markdown } from "@codemirror/lang-markdown";
 
 type Props = {
-  onChange: (value: string) => void;
+  valueRef: MutableRefObject<string>;
 };
 
 const updaterPlugin = (onChange: (value: string) => void) =>
@@ -18,10 +18,17 @@ const updaterPlugin = (onChange: (value: string) => void) =>
     }
   );
 
-const Editor = ({ onChange }: Props): React.ReactElement => {
+const Editor = ({ valueRef }: Props): React.ReactElement => {
   const [editorState] = useState(
     EditorState.create({
-      extensions: [basicSetup, markdown(), updaterPlugin(onChange)],
+      doc: valueRef.current,
+      extensions: [
+        basicSetup,
+        markdown(),
+        updaterPlugin((value) => {
+          valueRef.current = value;
+        }),
+      ],
     })
   );
 
@@ -39,4 +46,4 @@ const Editor = ({ onChange }: Props): React.ReactElement => {
   );
 };
 
-export default Editor;
+export default React.memo(Editor);
