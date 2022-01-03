@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     return { notFound: true };
   }
 
-  return { props: propsSchema.parse(post) };
+  return { props: propsSchema.parse({ post }) };
 };
 const Article = ({ post }: Props) => {
   const classes = useStyles();
