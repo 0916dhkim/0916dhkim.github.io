@@ -28,6 +28,7 @@ model Draft {
 
 model DraftVersion {
   id        String   @id @default(cuid())
+  content   String
   draft     Draft?   @relation(fields: [draftId], references: [id])
   draftId   String?
   createdAt DateTime @default(now())
