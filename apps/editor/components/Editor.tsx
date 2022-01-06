@@ -7,6 +7,7 @@ import { markdown } from "@codemirror/lang-markdown";
 
 type Props = {
   valueRef: MutableRefObject<string>;
+  onChange?: () => void;
 };
 
 const updaterPlugin = (onChange: (value: string) => void) =>
@@ -18,7 +19,7 @@ const updaterPlugin = (onChange: (value: string) => void) =>
     }
   );
 
-const Editor = ({ valueRef }: Props): React.ReactElement => {
+const Editor = ({ valueRef, onChange }: Props): React.ReactElement => {
   const [editorState] = useState(
     EditorState.create({
       doc: valueRef.current,
@@ -27,6 +28,7 @@ const Editor = ({ valueRef }: Props): React.ReactElement => {
         markdown(),
         updaterPlugin((value) => {
           valueRef.current = value;
+          onChange?.();
         }),
       ],
     })

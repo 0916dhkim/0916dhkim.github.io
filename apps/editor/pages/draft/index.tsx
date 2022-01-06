@@ -7,7 +7,7 @@ import { useSupabase } from "@0916dhkim/core";
 
 const Editor = dynamic(() => import("../../components/Editor"), { ssr: false });
 
-const useStyles = createUseStyles((theme) => ({
+const useStyles = createUseStyles(() => ({
   main: {
     alignSelf: "stretch",
     display: "flex",
@@ -73,9 +73,6 @@ const Draft: NextPage = () => {
         />
       </div>
       <Editor valueRef={contentRef} />
-      <button className={classes.submit} onClick={handleSubmit}>
-        Publish
-      </button>
     </main>
   );
 };
