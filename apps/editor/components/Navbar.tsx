@@ -19,9 +19,6 @@ const Navbar = () => {
       <Link href="/">
         <a>Home</a>
       </Link>
-      <Link href="/draft">
-        <a>New Draft</a>
-      </Link>
     </nav>
   );
 };
