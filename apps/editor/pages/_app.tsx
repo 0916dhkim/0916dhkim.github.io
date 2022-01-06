@@ -10,13 +10,18 @@ import {
 
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "react-jss";
+import dynamic from "next/dynamic";
+
+const Layout = dynamic(() => import("../components/Layout"), { ssr: false });
 
 function Inner({ pageProps, Component }: AppProps) {
   const { themeType } = useThemeType();
   return (
     <SupabaseProvider>
       <ThemeProvider theme={themeType === "light" ? LIGHT_THEME : DARK_THEME}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </SupabaseProvider>
   );
