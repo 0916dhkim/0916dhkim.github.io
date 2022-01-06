@@ -16,14 +16,27 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const Layout: React.FC = ({ children }) => {
-  const classes = useStyles();
+const PUBLIC_PATHS = ["/login", "/signup"];
+
+/**
+ * Redirect unauthorized users to /login page.
+ * Ignored on public pages.
+ */
+function useRedirectUnauthorized() {
   const supabase = useSupabase();
   const router = useRouter();
 
-  if (supabase.auth.session() === null) {
+  if (
+    supabase.auth.session() === null &&
+    !PUBLIC_PATHS.includes(router.pathname)
+  ) {
     router.replace("/login");
   }
+}
+
+const Layout: React.FC = ({ children }) => {
+  const classes = useStyles();
+  useRedirectUnauthorized();
 
   return (
     <>
