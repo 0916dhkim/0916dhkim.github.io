@@ -6,7 +6,7 @@ export const postSchema = z.object({
   id: z.string(),
   title: z.string(),
   language: languageSchema,
-  summary: z.string().optional(),
+  summary: z.string().nullish(),
   content: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
@@ -30,7 +30,7 @@ export const draftSchema = z.object({
   id: z.string(),
   title: z.string(),
   language: languageSchema,
-  summary: z.string().optional(),
+  summary: z.string().nullish(),
   content: z.string(),
 });
 

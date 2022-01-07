@@ -1,14 +1,12 @@
-import * as z from "zod";
-
-import { mapHandler, withUser } from "@0916dhkim/core";
+import { mapHandler, postSchema, withUser } from "@0916dhkim/core";
 
 import { prisma } from "@0916dhkim/prisma";
 
-const createPostSchema = z.object({
-  title: z.string(),
-  language: z.union([z.literal("EN"), z.literal("KR")]),
-  summary: z.string().optional(),
-  content: z.string(),
+const createPostSchema = postSchema.pick({
+  title: true,
+  language: true,
+  summary: true,
+  content: true,
 });
 
 export default mapHandler({
