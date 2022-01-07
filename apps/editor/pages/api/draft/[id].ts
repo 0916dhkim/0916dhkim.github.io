@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { Draft, PrismaClient } from "@0916dhkim/prisma";
+import { Draft, prisma } from "@0916dhkim/prisma";
 import { mapHandler, withUser } from "@0916dhkim/core";
 
 const updateDraftSchema = z.object({
@@ -10,7 +10,6 @@ const updateDraftSchema = z.object({
 
 export default mapHandler({
   GET: withUser(async (req, res) => {
-    const prisma = new PrismaClient();
     const draftId = req.query.id;
     if (typeof draftId !== "string") {
       return res.status(400).json({
@@ -43,7 +42,6 @@ export default mapHandler({
         message: "Missing draft ID.",
       });
     }
-    const prisma = new PrismaClient();
     const parsed = updateDraftSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({

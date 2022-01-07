@@ -4,10 +4,10 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
-import { PrismaClient } from "@0916dhkim/prisma";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { createUseStyles } from "react-jss";
+import { prisma } from "@0916dhkim/prisma";
 import { useHighlight } from "@0916dhkim/core";
 
 const propsSchema = z.object({
@@ -65,7 +65,6 @@ const useStyles = createUseStyles((theme) => ({
 }));
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const prisma = new PrismaClient();
   return {
     paths: (await prisma.post.findMany({ select: { id: true } })).map(
       (post) => ({
@@ -81,7 +80,6 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
-  const prisma = new PrismaClient();
   assert(params?.id, "Missing id url parameter.");
   const post = await prisma.post.findUnique({
     where: { id: params.id },

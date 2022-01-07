@@ -4,8 +4,8 @@ import type { GetServerSideProps, NextPage } from "next";
 import { draftSchema, postSchema, useSupabase } from "@0916dhkim/core";
 
 import Link from "next/link";
-import { PrismaClient } from "@0916dhkim/prisma";
 import { createUseStyles } from "react-jss";
+import { prisma } from "@0916dhkim/prisma";
 import { useRouter } from "next/router";
 
 const useStyles = createUseStyles(() => ({
@@ -26,7 +26,6 @@ const propsSchema = z.object({
 type Props = z.infer<typeof propsSchema>;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const prisma = new PrismaClient();
   const posts = await prisma.post.findMany();
   const drafts = await prisma.draft.findMany();
   return {

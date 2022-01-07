@@ -2,7 +2,7 @@ import * as z from "zod";
 
 import { mapHandler, withUser } from "@0916dhkim/core";
 
-import { PrismaClient } from "@0916dhkim/prisma";
+import { prisma } from "@0916dhkim/prisma";
 
 const createPostSchema = z.object({
   title: z.string(),
@@ -13,7 +13,6 @@ const createPostSchema = z.object({
 
 export default mapHandler({
   POST: withUser(async (req, res) => {
-    const prisma = new PrismaClient();
     const parsed = createPostSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({

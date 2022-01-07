@@ -3,7 +3,7 @@ import * as z from "zod";
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
-import { PrismaClient } from "@0916dhkim/prisma";
+import { prisma } from "@0916dhkim/prisma";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -23,14 +23,9 @@ const propsSchema = z.object({
 type Props = z.infer<typeof propsSchema>;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const prisma = new PrismaClient();
   return {
     props: propsSchema.parse({
-      posts: await prisma.post.findMany({
-        where: {
-          published: false,
-        },
-      }),
+      posts: await prisma.post.findMany(),
     }),
   };
 };

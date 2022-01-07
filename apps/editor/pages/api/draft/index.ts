@@ -2,7 +2,7 @@ import * as z from "zod";
 
 import { languageSchema, mapHandler, withUser } from "@0916dhkim/core";
 
-import { PrismaClient } from "@0916dhkim/prisma";
+import { prisma } from "@0916dhkim/prisma";
 
 const createDraftSchema = z.object({
   title: z.string(),
@@ -13,7 +13,6 @@ const createDraftSchema = z.object({
 
 export default mapHandler({
   GET: withUser(async (req, res) => {
-    const prisma = new PrismaClient();
     const drafts = await prisma.draft.findMany({
       include: {
         versions: {
@@ -28,7 +27,6 @@ export default mapHandler({
     return res.json({ drafts });
   }),
   POST: withUser(async (req, res) => {
-    const prisma = new PrismaClient();
     const parsed = createDraftSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({
