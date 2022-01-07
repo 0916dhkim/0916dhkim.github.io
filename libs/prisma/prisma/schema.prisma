@@ -23,6 +23,8 @@ model Post {
 model Draft {
   id       String         @id @default(cuid())
   title    String
+  language Language
+  summary  String?
   versions DraftVersion[]
 }
 
