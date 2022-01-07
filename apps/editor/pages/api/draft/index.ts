@@ -1,11 +1,13 @@
 import * as z from "zod";
 
-import { mapHandler, withUser } from "@0916dhkim/core";
+import { languageSchema, mapHandler, withUser } from "@0916dhkim/core";
 
 import { PrismaClient } from "@0916dhkim/prisma";
 
 const createDraftSchema = z.object({
   title: z.string(),
+  language: languageSchema,
+  summary: z.string().optional(),
   content: z.string(),
 });
 
@@ -39,6 +41,8 @@ export default mapHandler({
         draft: {
           create: {
             title: parsed.data.title,
+            language: parsed.data.language,
+            summary: parsed.data.summary,
           },
         },
       },

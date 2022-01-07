@@ -1,21 +1,16 @@
 import * as z from "zod";
 
 import type { GetServerSideProps, NextPage } from "next";
+import { draftSchema, postSchema, useSupabase } from "@0916dhkim/core";
 
 import Link from "next/link";
 import { PrismaClient } from "@0916dhkim/prisma";
 import { createUseStyles } from "react-jss";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core";
 
 const useStyles = createUseStyles(() => ({
   home: {},
 }));
-
-const postSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-});
 
 const createDraftResponse = z.object({
   draft: z.object({
@@ -23,20 +18,19 @@ const createDraftResponse = z.object({
   }),
 });
 
-type Props = {
-  posts: { title: string; id: string }[];
-  drafts: { title: string; id: string }[];
-};
+const propsSchema = z.object({
+  posts: postSchema.pick({ id: true, title: true }).array(),
+  drafts: draftSchema.pick({ id: true, title: true }).array(),
+});
+
+type Props = z.infer<typeof propsSchema>;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const prisma = new PrismaClient();
-  const posts = postSchema.array().parse(await prisma.post.findMany());
-  const drafts = postSchema.array().parse(await prisma.draft.findMany());
+  const posts = await prisma.post.findMany();
+  const drafts = await prisma.draft.findMany();
   return {
-    props: {
-      posts,
-      drafts,
-    },
+    props: propsSchema.parse({ posts, drafts }),
   };
 };
 
@@ -55,6 +49,7 @@ const Home: NextPage<Props> = ({ posts, drafts }) => {
         },
         body: JSON.stringify({
           title: "",
+          language: "EN",
           content: "",
         }),
       });
