@@ -1,12 +1,11 @@
+import * as z from "zod";
+
 import { mapHandler, postSchema, withUser } from "@0916dhkim/core";
 
 import { prisma } from "@0916dhkim/prisma";
 
-const createPostSchema = postSchema.pick({
-  title: true,
-  language: true,
-  summary: true,
-  content: true,
+const createPostSchema = z.object({
+  draftId: z.string(),
 });
 
 export default mapHandler({
@@ -17,9 +16,48 @@ export default mapHandler({
         message: parsed.error.message,
       });
     }
-    const post = await prisma.post.create({
-      data: parsed.data,
+    const draft = await prisma.draft.findUnique({
+      where: { id: parsed.data.draftId },
+      include: {
+        versions: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: 1,
+          select: {
+            content: true,
+          },
+        },
+      },
     });
+    if (draft === null) {
+      return res.status(404).json({
+        message: "Draft not found.",
+      });
+    }
+    const latestDraftVersion = draft.versions[0];
+    if (latestDraftVersion === undefined) {
+      return res.status(500).json({
+        message: "Draft does not have any version.",
+      });
+    }
+
+    const post = await prisma.post.create({
+      data: {
+        content: latestDraftVersion.content,
+        language: draft.language,
+        title: draft.title,
+        summary: draft.summary,
+      },
+    });
+
+    // Delete all drafts when post is created successfully.
+    await prisma.$transaction([
+      prisma.draftVersion.deleteMany({
+        where: { draftId: parsed.data.draftId },
+      }),
+      prisma.draft.delete({ where: { id: parsed.data.draftId } }),
+    ]);
 
     return res.json({ post });
   }),

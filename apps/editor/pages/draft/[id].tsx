@@ -26,12 +26,6 @@ const getDraftResponse = z.object({
   }),
 });
 
-const createPostRequest = postSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
 const draftFormPropsSchema = z.object({
   draft: draftSchema.pick({
     id: true,
@@ -98,14 +92,9 @@ const DraftForm = ({ draft }: DraftFormProps): React.ReactElement => {
           Authorization: `Bearer ${supabase.auth.session()?.access_token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          createPostRequest.parse({
-            title,
-            language,
-            summary,
-            content,
-          })
-        ),
+        body: JSON.stringify({
+          draftId: draft.id,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to publish draft.");
