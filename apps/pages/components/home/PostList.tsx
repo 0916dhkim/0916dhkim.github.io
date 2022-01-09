@@ -38,7 +38,7 @@ type ListItemProps = {
   id: string;
   title: string;
   content: string;
-  summary?: string;
+  summary?: string | null;
   createdAt: string;
 };
 

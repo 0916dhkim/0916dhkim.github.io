@@ -21,6 +21,11 @@ type Props = z.infer<typeof propsSchema>;
 type Params = { id: string };
 
 const useStyles = createUseStyles((theme) => ({
+  title: {
+    fontSize: "3rem",
+    color: theme.palette.secondary,
+    textAlign: "center",
+  },
   markdown: {
     maxWidth: 800,
     alignSelf: "center",
@@ -99,6 +104,7 @@ const Article = ({ post }: Props) => {
       <Head>
         <title>{post.title}</title>
       </Head>
+      <h1 className={classes.title}>{post.title}</h1>
       <ReactMarkdown className={classes.markdown}>{post.content}</ReactMarkdown>
     </>
   );

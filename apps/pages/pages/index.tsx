@@ -3,20 +3,18 @@ import * as z from "zod";
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
+import { postSchema } from "@0916dhkim/core";
 import { prisma } from "@0916dhkim/prisma";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const propsSchema = z.object({
-  posts: z
-    .object({
-      id: z.string(),
-      title: z.string(),
-      content: z.string(),
-      summary: z.string().optional(),
-      createdAt: z.date(),
-    })
-    .transform((post) => ({ ...post, createdAt: post.createdAt.toISOString() }))
+  posts: postSchema
+    .transform((post) => ({
+      ...post,
+      createdAt: post.createdAt.toISOString(),
+      updatedAt: post.updatedAt.toISOString(),
+    }))
     .array(),
 });
 
