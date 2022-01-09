@@ -1,3 +1,4 @@
+import * as classes from "styles/postpage.css";
 import * as z from "zod";
 
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -6,7 +7,6 @@ import { CommonHead } from "components/CommonHead";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
-import { createUseStyles } from "react-jss";
 import { prisma } from "@0916dhkim/prisma";
 import { useHighlight } from "@0916dhkim/core";
 
@@ -19,55 +19,6 @@ const propsSchema = z.object({
 });
 type Props = z.infer<typeof propsSchema>;
 type Params = { id: string };
-
-const useStyles = createUseStyles((theme) => ({
-  title: {
-    fontSize: "3rem",
-    color: theme.palette.secondary,
-    textAlign: "center",
-  },
-  markdown: {
-    maxWidth: 800,
-    alignSelf: "center",
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    "& p": {
-      marginTop: 8,
-    },
-    "& h1": {
-      color: theme.palette.secondary,
-    },
-    "& h2": {
-      color: theme.palette.secondary,
-      marginTop: 16,
-      borderBottom: "3px solid",
-    },
-    "& h3": {
-      color: theme.palette.secondary,
-      marginTop: 16,
-    },
-    "& ul,ol": {
-      marginTop: 8,
-      paddingLeft: 24,
-    },
-    "& blockquote": {
-      background: theme.palette.paper,
-      boxShadow: theme.shadow,
-      padding: "0.5rem",
-      margin: "0.75rem 0",
-      "& p": {
-        margin: 0,
-      },
-    },
-    "& pre": {
-      margin: "0.75rem 0",
-      overflowX: "auto",
-      background: theme.palette.paper,
-      boxShadow: theme.shadow,
-    },
-  },
-}));
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   return {
@@ -96,7 +47,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   return { props: propsSchema.parse({ post }) };
 };
 const Article = ({ post }: Props) => {
-  const classes = useStyles();
   useHighlight();
   return (
     <>

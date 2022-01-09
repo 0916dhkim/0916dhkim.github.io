@@ -1,26 +1,13 @@
+import * as styles from "./Layout.css";
+
 import { Header } from "./shared/Header";
-import { createUseStyles } from "react-jss";
-const useStyles = createUseStyles((theme) => ({
-  container: {
-    minHeight: "100vh",
-    backgroundColor: theme.palette.background,
-    display: "flex",
-    flexDirection: "column",
-    gap: "2rem",
-  },
-  main: {
-    padding: "0 3rem 3rem 3rem",
-    display: "flex",
-    flexDirection: "column",
-  },
-}));
+import { lightTheme } from "styles/theme.css";
 
 export const Layout: React.FC = ({ children }) => {
-  const classes = useStyles();
   return (
-    <div className={classes.container}>
+    <div className={`${lightTheme} ${styles.container}`}>
       <Header />
-      <main className={classes.main}>{children}</main>
+      <main className={styles.main}>{children}</main>
     </div>
   );
 };
