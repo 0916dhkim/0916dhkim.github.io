@@ -1,6 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { vars } from "./theme.css";
+import { vars } from "@0916dhkim/theme/theme.css";
 
 export const title = style({
   fontSize: "3rem",

@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "../../styles/theme.css";
+import { vars } from "@0916dhkim/theme/theme.css";
 
 export const header = style({
   position: "sticky",

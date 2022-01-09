@@ -1,7 +1,7 @@
 import * as styles from "./Layout.css";
 
 import { Header } from "./shared/Header";
-import { lightTheme } from "styles/theme.css";
+import { lightTheme } from "@0916dhkim/theme/theme.css";
 
 export const Layout: React.FC = ({ children }) => {
   return (
