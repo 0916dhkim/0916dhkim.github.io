@@ -123,39 +123,36 @@ const Draft: NextPage = () => {
     [router, supabase]
   );
 
-  const updateDraft: ComponentProps<typeof DraftForm>["updateDraft"] =
-    useCallback(
-      (draftId, data) => {
-        enqueueCallback(async () => {
-          try {
-            const response = await fetch(`/api/draft/${draftId}`, {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${
-                  supabase.auth.session()?.access_token
-                }`,
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            });
-            if (!response.ok) {
-              throw new Error("Failed to create draft.");
-            }
-          } catch (e) {
-            console.error(e);
+  const updateDraft: ComponentProps<typeof DraftForm>["onChange"] = useCallback(
+    (draftId, data) => {
+      enqueueCallback(async () => {
+        try {
+          const response = await fetch(`/api/draft/${draftId}`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${supabase.auth.session()?.access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) {
+            throw new Error("Failed to create draft.");
           }
-        });
-      },
-      [enqueueCallback, supabase]
-    );
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    },
+    [enqueueCallback, supabase]
+  );
 
   return (
     <main className={classes.main}>
       {draftFormValues ? (
         <DraftForm
-          values={draftFormValues}
-          publishDraft={publishDraft}
-          updateDraft={updateDraft}
+          initialValues={draftFormValues}
+          onSubmit={publishDraft}
+          onChange={updateDraft}
         />
       ) : (
         <p>Loading...</p>

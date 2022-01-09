@@ -1,5 +1,5 @@
 import { Language, Post } from "@0916dhkim/prisma";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
@@ -18,45 +18,48 @@ const useStyles = createUseStyles(() => ({
   },
 }));
 
+type CombinedValues = Omit<Post, "id" | "createdAt" | "updatedAt">;
+
 type DraftFormProps = {
-  values: {
+  initialValues: {
     id: string;
     title: string;
     language: Language;
     summary?: string | null | undefined;
     content: string;
   };
-  publishDraft: (draftId: string) => void;
-  updateDraft: (
-    draftId: string,
-    data: Omit<Post, "id" | "createdAt" | "updatedAt">
-  ) => void;
+  onSubmit?: (id: string, data: CombinedValues) => void;
+  onChange?: (id: string, data: CombinedValues) => void;
 };
 
 const DraftForm = ({
-  values,
-  publishDraft,
-  updateDraft,
+  initialValues,
+  onSubmit,
+  onChange,
 }: DraftFormProps): React.ReactElement => {
   const classes = useStyles();
-  const [title, setTitle] = useState(values.title);
-  const [language, setLanguage] = useState(values.language);
-  const [summary, setSummary] = useState(values.summary);
-  const [content, setContent] = useState(values.content);
+  const [title, setTitle] = useState(initialValues.title);
+  const [language, setLanguage] = useState(initialValues.language);
+  const [summary, setSummary] = useState(initialValues.summary);
+  const [content, setContent] = useState(initialValues.content);
+  const combinedValues: CombinedValues = useMemo(
+    () => ({
+      title,
+      language,
+      summary: summary ?? null,
+      content,
+    }),
+    [content, language, summary, title]
+  );
 
   const handleContentChange = useCallback((value: string) => {
     setContent(value);
   }, []);
 
   useEffect(() => {
-    updateDraft(values.id, {
-      title,
-      language,
-      summary: summary ?? null,
-      content,
-    });
+    onChange?.(initialValues.id, combinedValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, language, summary, content]);
+  }, [combinedValues]);
 
   return (
     <>
@@ -88,10 +91,13 @@ const DraftForm = ({
           onChange={(e) => setSummary(e.target.value)}
         />
       </div>
-      <Editor initialValue={values.content} onChange={handleContentChange} />
+      <Editor
+        initialValue={initialValues.content}
+        onChange={handleContentChange}
+      />
       <button
         className={classes.publish}
-        onClick={() => publishDraft(values.id)}
+        onClick={() => onSubmit?.(initialValues.id, combinedValues)}
       >
         Publish
       </button>

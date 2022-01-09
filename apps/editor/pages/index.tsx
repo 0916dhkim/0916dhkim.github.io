@@ -78,7 +78,11 @@ const Home: NextPage<Props> = ({ posts, drafts }) => {
       <h1>Posts</h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+          <li key={post.id}>
+            <Link href={`/post/${post.id}`}>
+              <a>{post.title}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </main>
