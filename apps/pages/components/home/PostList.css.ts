@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@0916dhkim/theme/theme.css";
+import { theme } from "@0916dhkim/theme/theme.css";
 
 export const container = style({
   display: "flex",
@@ -13,12 +13,12 @@ export const item = style({
   flexDirection: "column",
   alignItems: "flex-start",
   gap: "0.5rem",
-  backgroundColor: vars.palette.paper,
-  boxShadow: vars.shadow,
+  backgroundColor: theme.palette.paper,
+  boxShadow: theme.shadow,
 });
 
 export const title = style({
-  color: vars.palette.primary,
+  color: theme.palette.primary,
 });
 
 export const summary = style({
@@ -31,7 +31,7 @@ export const summary = style({
 });
 
 export const date = style({
-  color: vars.palette.secondary,
+  color: theme.palette.secondary,
   alignSelf: "end",
   fontSize: "0.875rem",
 });

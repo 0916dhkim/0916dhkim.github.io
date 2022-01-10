@@ -1,10 +1,10 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { vars } from "@0916dhkim/theme/theme.css";
+import { theme } from "@0916dhkim/theme/theme.css";
 
 export const title = style({
   fontSize: "3rem",
-  color: vars.palette.secondary,
+  color: theme.palette.secondary,
   textAlign: "center",
 });
 
@@ -20,15 +20,15 @@ globalStyle(`${markdown} p`, {
   marginTop: 8,
 });
 globalStyle(`${markdown} h1`, {
-  color: vars.palette.secondary,
+  color: theme.palette.secondary,
 });
 globalStyle(`${markdown} h2`, {
-  color: vars.palette.secondary,
+  color: theme.palette.secondary,
   marginTop: 16,
   borderBottom: "3px solid",
 });
 globalStyle(`${markdown} h3`, {
-  color: vars.palette.secondary,
+  color: theme.palette.secondary,
   marginTop: 16,
 });
 globalStyle(`${markdown} ul,ol`, {
@@ -36,8 +36,8 @@ globalStyle(`${markdown} ul,ol`, {
   paddingLeft: 24,
 });
 globalStyle(`${markdown} blockquote`, {
-  background: vars.palette.paper,
-  boxShadow: vars.shadow,
+  background: theme.palette.paper,
+  boxShadow: theme.shadow,
   padding: "0.5rem",
   margin: "0.75rem 0",
 });
@@ -47,6 +47,6 @@ globalStyle(`${markdown} blockquote p`, {
 globalStyle(`${markdown} pre`, {
   margin: "0.75rem 0",
   overflowX: "auto",
-  background: vars.palette.paper,
-  boxShadow: vars.shadow,
+  background: theme.palette.paper,
+  boxShadow: theme.shadow,
 });

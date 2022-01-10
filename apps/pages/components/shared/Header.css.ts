@@ -1,18 +1,18 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@0916dhkim/theme/theme.css";
+import { theme } from "@0916dhkim/theme/theme.css";
 
 export const header = style({
   position: "sticky",
   top: 0,
-  background: vars.palette.primary,
-  color: vars.palette.white,
+  background: theme.palette.primary,
+  color: theme.palette.white,
   padding: "1rem",
   display: "flex",
   gap: "0.5rem",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-  boxShadow: vars.shadow,
+  boxShadow: theme.shadow,
 });
 
 export const navbar = style({

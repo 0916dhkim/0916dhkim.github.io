@@ -1,6 +1,10 @@
-import { createTheme, createThemeContract } from "@vanilla-extract/css";
+import {
+  createGlobalTheme,
+  createThemeContract,
+  globalStyle,
+} from "@vanilla-extract/css";
 
-export const vars = createThemeContract({
+export const theme = createThemeContract({
   palette: {
     primary: null,
     secondary: null,
@@ -11,7 +15,8 @@ export const vars = createThemeContract({
   shadow: null,
 });
 
-export const lightTheme = createTheme(vars, {
+/** Light Theme */
+createGlobalTheme(":root", theme, {
   palette: {
     primary: "#365DC0",
     secondary: "#826754",
@@ -20,4 +25,35 @@ export const lightTheme = createTheme(vars, {
     white: "white",
   },
   shadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+});
+
+/** Dark theme */
+createGlobalTheme(':root[data-theme="dark"]', theme, {
+  palette: {
+    primary: "#365DC0",
+    secondary: "#826754",
+    background: "black",
+    paper: "black",
+    white: "black",
+  },
+  shadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+});
+
+/** Reset */
+globalStyle("html, body", {
+  padding: 0,
+  margin: 0,
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+});
+
+globalStyle("a", {
+  color: "inherit",
+  textDecoration: "none",
+});
+
+globalStyle("*", {
+  padding: 0,
+  margin: 0,
+  boxSizing: "border-box",
 });
