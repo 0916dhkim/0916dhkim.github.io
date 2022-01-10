@@ -1,3 +1,4 @@
+import * as styles from "../../styles/postpage.css";
 import * as z from "zod";
 
 import React, { useCallback, useEffect, useState } from "react";
@@ -5,7 +6,6 @@ import { languageSchema, useSupabase } from "@0916dhkim/core";
 
 import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
-import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
@@ -21,18 +21,7 @@ const getPostResponse = z.object({
 
 type GetPostResponse = z.infer<typeof getPostResponse>;
 
-const useStyles = createUseStyles(() => ({
-  main: {
-    alignSelf: "stretch",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
-    gap: "1rem",
-  },
-}));
-
 const PostPage: NextPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const supabase = useSupabase();
 
@@ -85,7 +74,7 @@ const PostPage: NextPage = () => {
   );
 
   return (
-    <main className={classes.main}>
+    <main className={styles.main}>
       {post ? (
         <DraftForm initialValues={post} onSubmit={updatePost} />
       ) : (

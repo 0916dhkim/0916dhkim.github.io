@@ -1,22 +1,12 @@
+import * as styles from "./DraftForm.css";
+
 import { Language, Post } from "@0916dhkim/prisma";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
 import { languageSchema } from "@0916dhkim/core";
 
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
-
-const useStyles = createUseStyles(() => ({
-  formgrid: {
-    display: "grid",
-    gridTemplateColumns: "auto 1fr",
-    gap: "1rem",
-  },
-  publish: {
-    alignSelf: "flex-end",
-  },
-}));
 
 type CombinedValues = Omit<Post, "id" | "createdAt" | "updatedAt">;
 
@@ -37,7 +27,6 @@ const DraftForm = ({
   onSubmit,
   onChange,
 }: DraftFormProps): React.ReactElement => {
-  const classes = useStyles();
   const [title, setTitle] = useState(initialValues.title);
   const [language, setLanguage] = useState(initialValues.language);
   const [summary, setSummary] = useState(initialValues.summary);
@@ -64,7 +53,7 @@ const DraftForm = ({
   return (
     <>
       <h1>Edit Draft</h1>
-      <div className={classes.formgrid}>
+      <div className={styles.formgrid}>
         <span>Title</span>
         <input
           type="text"
@@ -96,7 +85,7 @@ const DraftForm = ({
         onChange={handleContentChange}
       />
       <button
-        className={classes.publish}
+        className={styles.publish}
         onClick={() => onSubmit?.(initialValues.id, combinedValues)}
       >
         Publish

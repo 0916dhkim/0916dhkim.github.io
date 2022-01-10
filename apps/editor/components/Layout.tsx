@@ -1,20 +1,10 @@
+import * as styles from "./Layout.css";
+
 import Head from "next/head";
 import Navbar from "./Navbar";
 import React from "react";
-import { createUseStyles } from "react-jss";
 import { useRouter } from "next/router";
 import { useSupabase } from "@0916dhkim/core";
-
-const useStyles = createUseStyles((theme) => ({
-  root: {
-    minWidth: "100vw",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "4rem",
-  },
-}));
 
 const PUBLIC_PATHS = ["/login", "/signup"];
 
@@ -35,7 +25,6 @@ function useRedirectUnauthorized() {
 }
 
 const Layout: React.FC = ({ children }) => {
-  const classes = useStyles();
   useRedirectUnauthorized();
 
   return (
@@ -46,7 +35,7 @@ const Layout: React.FC = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className={classes.root}>{children}</div>
+      <div className={styles.root}>{children}</div>
     </>
   );
 };

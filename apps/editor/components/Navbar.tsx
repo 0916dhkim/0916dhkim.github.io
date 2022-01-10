@@ -1,21 +1,10 @@
-import Link from "next/link";
-import { createUseStyles } from "react-jss";
+import * as styles from "./Navbar.css";
 
-const useStyles = createUseStyles(() => ({
-  navbar: {
-    position: "sticky",
-    top: 0,
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "row",
-    gap: "2rem",
-  },
-}));
+import Link from "next/link";
 
 const Navbar = () => {
-  const classes = useStyles();
   return (
-    <nav className={classes.navbar}>
+    <nav className={styles.navbar}>
       <Link href="/">
         <a>Home</a>
       </Link>

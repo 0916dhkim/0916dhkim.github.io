@@ -1,3 +1,4 @@
+import * as styles from "../../styles/draftpage.css";
 import * as z from "zod";
 
 import React, {
@@ -11,7 +12,6 @@ import { languageSchema, useSupabase } from "@0916dhkim/core";
 
 import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
-import { createUseStyles } from "react-jss";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
@@ -31,16 +31,6 @@ const getDraftResponse = z.object({
 
 type GetDraftResponse = z.infer<typeof getDraftResponse>;
 
-const useStyles = createUseStyles(() => ({
-  main: {
-    alignSelf: "stretch",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
-    gap: "1rem",
-  },
-}));
-
 function useDebounceQueue(waitFor: number) {
   const [state, setState] = useState<NodeJS.Timeout | null>(null);
 
@@ -58,7 +48,6 @@ function useDebounceQueue(waitFor: number) {
 }
 
 const Draft: NextPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const supabase = useSupabase();
   const enqueueCallback = useDebounceQueue(500);
@@ -147,7 +136,7 @@ const Draft: NextPage = () => {
   );
 
   return (
-    <main className={classes.main}>
+    <main className={styles.main}>
       {draftFormValues ? (
         <DraftForm
           initialValues={draftFormValues}

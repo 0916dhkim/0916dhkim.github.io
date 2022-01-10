@@ -1,16 +1,12 @@
+import * as styles from "../styles/home.css";
 import * as z from "zod";
 
 import type { GetServerSideProps, NextPage } from "next";
 import { draftSchema, postSchema, useSupabase } from "@0916dhkim/core";
 
 import Link from "next/link";
-import { createUseStyles } from "react-jss";
 import { prisma } from "@0916dhkim/prisma";
 import { useRouter } from "next/router";
-
-const useStyles = createUseStyles(() => ({
-  home: {},
-}));
 
 const createDraftResponse = z.object({
   draft: z.object({
@@ -34,7 +30,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 const Home: NextPage<Props> = ({ posts, drafts }) => {
-  const classes = useStyles();
   const supabase = useSupabase();
   const router = useRouter();
 
@@ -63,7 +58,7 @@ const Home: NextPage<Props> = ({ posts, drafts }) => {
   };
 
   return (
-    <main className={classes.home}>
+    <main className={styles.home}>
       <button onClick={createDraft}>New draft</button>
       <h1>Drafts</h1>
       <ul>
