@@ -8,12 +8,13 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { languageSchema, useSupabase } from "@0916dhkim/core";
 
 import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { languageSchema } from "@0916dhkim/core/types";
 import { useRouter } from "next/router";
+import { useSupabase } from "@0916dhkim/core/supabase";
 
 const getDraftResponse = z.object({
   draft: z.object({

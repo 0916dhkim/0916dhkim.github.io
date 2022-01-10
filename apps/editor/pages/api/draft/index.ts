@@ -1,7 +1,8 @@
 import * as z from "zod";
 
-import { languageSchema, mapHandler, withUser } from "@0916dhkim/core";
+import { mapHandler, withUser } from "@0916dhkim/core/api";
 
+import { languageSchema } from "@0916dhkim/core/types";
 import { prisma } from "@0916dhkim/prisma";
 
 const createDraftSchema = z.object({

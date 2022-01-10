@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 import { Draft, prisma } from "@0916dhkim/prisma";
-import { mapHandler, withUser } from "@0916dhkim/core";
+import { mapHandler, withUser } from "@0916dhkim/core/api";
 
 const updateDraftSchema = z.object({
   title: z.string().optional(),

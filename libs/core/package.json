@@ -1,8 +1,6 @@
 {
   "name": "@0916dhkim/core",
   "version": "0.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "dependencies": {
     "@prisma/client": "^3.7.0",
     "@supabase/supabase-js": "^1.29.1",

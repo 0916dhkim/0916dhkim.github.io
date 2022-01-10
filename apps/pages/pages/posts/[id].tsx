@@ -8,7 +8,7 @@ import Head from "next/head";
 import ReactMarkdown from "react-markdown";
 import assert from "assert";
 import { prisma } from "@0916dhkim/prisma";
-import { useHighlight } from "@0916dhkim/core";
+import { useHighlight } from "@0916dhkim/core/highlight";
 
 const propsSchema = z.object({
   post: z.object({

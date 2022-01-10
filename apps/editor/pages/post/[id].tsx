@@ -2,12 +2,13 @@ import * as styles from "../../styles/postpage.css";
 import * as z from "zod";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { languageSchema, useSupabase } from "@0916dhkim/core";
 
 import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { languageSchema } from "@0916dhkim/core/types";
 import { useRouter } from "next/router";
+import { useSupabase } from "@0916dhkim/core/supabase";
 
 const getPostResponse = z.object({
   post: z.object({

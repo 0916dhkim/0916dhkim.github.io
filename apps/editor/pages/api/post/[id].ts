@@ -1,5 +1,6 @@
-import { mapHandler, postSchema, withUser } from "@0916dhkim/core";
+import { mapHandler, withUser } from "@0916dhkim/core/api";
 
+import { postSchema } from "@0916dhkim/core/types";
 import { prisma } from "@0916dhkim/prisma";
 
 const updatePostSchema = postSchema

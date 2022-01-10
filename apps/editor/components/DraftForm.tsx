@@ -4,7 +4,7 @@ import { Language, Post } from "@0916dhkim/prisma";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import dynamic from "next/dynamic";
-import { languageSchema } from "@0916dhkim/core";
+import { languageSchema } from "@0916dhkim/core/types";
 
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
 

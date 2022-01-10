@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { mapHandler, withUser } from "@0916dhkim/core";
+import { mapHandler, withUser } from "@0916dhkim/core/api";
 
 import { prisma } from "@0916dhkim/prisma";
 

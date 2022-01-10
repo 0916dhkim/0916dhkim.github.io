@@ -4,7 +4,7 @@ import Head from "next/head";
 import Navbar from "./Navbar";
 import React from "react";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core";
+import { useSupabase } from "@0916dhkim/core/supabase";
 
 const PUBLIC_PATHS = ["/login", "/signup"];
 

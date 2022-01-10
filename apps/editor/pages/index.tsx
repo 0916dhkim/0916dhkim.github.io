@@ -2,11 +2,12 @@ import * as styles from "../styles/home.css";
 import * as z from "zod";
 
 import type { GetServerSideProps, NextPage } from "next";
-import { draftSchema, postSchema, useSupabase } from "@0916dhkim/core";
+import { draftSchema, postSchema } from "@0916dhkim/core/types";
 
 import Link from "next/link";
 import { prisma } from "@0916dhkim/prisma";
 import { useRouter } from "next/router";
+import { useSupabase } from "@0916dhkim/core/supabase";
 
 const createDraftResponse = z.object({
   draft: z.object({

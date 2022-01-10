@@ -3,7 +3,7 @@ import * as z from "zod";
 import { CommonHead } from "components/CommonHead";
 import type { GetStaticProps } from "next";
 import { PostList } from "components/home/PostList";
-import { postSchema } from "@0916dhkim/core";
+import { postSchema } from "@0916dhkim/core/types";
 import { prisma } from "@0916dhkim/prisma";
 import { useEffect } from "react";
 import { useRouter } from "next/router";

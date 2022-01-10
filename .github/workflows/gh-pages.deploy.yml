@@ -20,8 +20,6 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Migrate DB
         run: yarn workspace @0916dhkim/prisma prisma migrate deploy
-      - name: Build core lib
-        run: yarn workspace @0916dhkim/core tsc
       - name: Build pages
         run: yarn workspace @0916dhkim/pages next build
       - name: Export Static Files
