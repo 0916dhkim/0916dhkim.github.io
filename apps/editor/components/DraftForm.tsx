@@ -52,7 +52,6 @@ const DraftForm = ({
 
   return (
     <>
-      <h1>Edit Draft</h1>
       <div className={styles.formgrid}>
         <span>Title</span>
         <input

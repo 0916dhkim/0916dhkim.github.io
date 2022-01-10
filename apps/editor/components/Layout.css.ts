@@ -6,8 +6,14 @@ export const root = style({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  padding: "4rem",
 
-  backgroundColor: theme.palette.background,
+  color: theme.palette.default.text,
+  backgroundColor: theme.palette.default.background,
+});
+
+export const main = style({
+  padding: "4rem",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 });

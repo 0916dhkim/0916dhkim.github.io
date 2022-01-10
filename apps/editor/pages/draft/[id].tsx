@@ -138,6 +138,7 @@ const Draft: NextPage = () => {
 
   return (
     <main className={styles.main}>
+      <h1>Edit Draft</h1>
       {draftFormValues ? (
         <DraftForm
           initialValues={draftFormValues}

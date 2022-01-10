@@ -13,12 +13,13 @@ export const item = style({
   flexDirection: "column",
   alignItems: "flex-start",
   gap: "0.5rem",
-  backgroundColor: theme.palette.paper,
+  backgroundColor: theme.palette.paper.background,
+  color: theme.palette.paper.text,
   boxShadow: theme.shadow,
 });
 
 export const title = style({
-  color: theme.palette.primary,
+  color: theme.palette.primary.background,
 });
 
 export const summary = style({
@@ -31,7 +32,7 @@ export const summary = style({
 });
 
 export const date = style({
-  color: theme.palette.secondary,
+  color: theme.palette.secondary.background,
   alignSelf: "end",
   fontSize: "0.875rem",
 });

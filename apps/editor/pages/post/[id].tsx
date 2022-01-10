@@ -76,6 +76,7 @@ const PostPage: NextPage = () => {
 
   return (
     <main className={styles.main}>
+      <h1>Edit Post</h1>
       {post ? (
         <DraftForm initialValues={post} onSubmit={updatePost} />
       ) : (

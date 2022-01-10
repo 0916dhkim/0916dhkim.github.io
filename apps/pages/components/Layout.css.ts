@@ -3,7 +3,8 @@ import { theme } from "@0916dhkim/theme/theme.css";
 
 export const container = style({
   minHeight: "100vh",
-  backgroundColor: theme.palette.background,
+  color: theme.palette.default.text,
+  backgroundColor: theme.palette.default.background,
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
