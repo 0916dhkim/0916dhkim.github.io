@@ -3,7 +3,7 @@ import { memo } from "react";
 /**
  * Empty component for setting `data-theme` attribute of the <html> tag.
  */
-const DarkMode = (): null => {
+export const DarkMode = (): null => {
   // Only run on client-side.
   if (typeof window !== "undefined") {
     const isOsDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -13,5 +13,3 @@ const DarkMode = (): null => {
   }
   return null;
 };
-
-export default memo(DarkMode);
