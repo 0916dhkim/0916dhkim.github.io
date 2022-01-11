@@ -1,7 +1,6 @@
 import "@0916dhkim/theme/theme.css";
 
 import type { AppProps } from "next/app";
-import Script from "next/script";
 import { SupabaseProvider } from "@0916dhkim/core/supabase";
 import dynamic from "next/dynamic";
 
@@ -13,7 +12,7 @@ function App({ pageProps, Component }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      <Script src="/darkmode.js" strategy="beforeInteractive" />
+      <script defer src="/darkmode.js"></script>
     </SupabaseProvider>
   );
 }

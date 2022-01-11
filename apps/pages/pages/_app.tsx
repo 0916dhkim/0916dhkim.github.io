@@ -3,13 +3,12 @@ import "highlight.js/styles/github-dark.css";
 
 import type { AppProps } from "next/app";
 import { Layout } from "components/layout";
-import Script from "next/script";
 
 function App({ pageProps, Component }: AppProps) {
   return (
     <Layout>
       <Component {...pageProps} />
-      <Script src="/darkmode.js" strategy="beforeInteractive" />
+      <script defer src="/darkmode.js"></script>
     </Layout>
   );
 }
