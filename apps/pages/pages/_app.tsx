@@ -8,7 +8,8 @@ function App({ pageProps, Component }: AppProps) {
   return (
     <Layout>
       <Component {...pageProps} />
-      <script defer src="/darkmode.js"></script>
+      {/* eslint-disable-next-line @next/next/no-sync-scripts*/}
+      <script src="/darkmode.js"></script>
     </Layout>
   );
 }

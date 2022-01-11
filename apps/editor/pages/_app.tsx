@@ -12,7 +12,8 @@ function App({ pageProps, Component }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      <script defer src="/darkmode.js"></script>
+      {/* eslint-disable-next-line @next/next/no-sync-scripts*/}
+      <script src="/darkmode.js"></script>
     </SupabaseProvider>
   );
 }
