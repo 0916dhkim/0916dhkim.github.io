@@ -14,14 +14,3 @@ export const header = style({
   alignItems: "center",
   boxShadow: theme.shadow,
 });
-
-export const navbar = style({
-  display: "flex",
-  flexDirection: "row",
-  gap: "2em",
-  justifyContent: "center",
-});
-
-export const navlink = style({
-  textDecoration: "underline",
-});
