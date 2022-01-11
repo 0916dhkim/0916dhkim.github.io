@@ -53,11 +53,11 @@ createGlobalTheme(":root", theme, {
 createGlobalTheme(':root[data-theme="dark"]', theme, {
   palette: {
     default: {
-      background: "#3A405A",
+      background: "#282C3E",
       text: "#F9DEC9",
     },
     paper: {
-      background: "#282C3E",
+      background: "#3A405A",
       text: "#F9DEC9",
     },
     primary: {
