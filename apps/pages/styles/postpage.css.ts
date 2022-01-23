@@ -21,6 +21,7 @@ globalStyle(`${markdown} p`, {
 });
 globalStyle(`${markdown} h1`, {
   color: theme.palette.secondary.background,
+  marginTop: 32,
 });
 globalStyle(`${markdown} h2`, {
   color: theme.palette.secondary.background,
