@@ -80,12 +80,16 @@ globalStyle("html, body", {
     "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 });
 
+/** Override browser default styles */
 globalStyle("a", {
-  color: "inherit",
+  color: theme.palette.primary.background,
   textDecoration: "none",
 });
+globalStyle("a:hover", {
+  color: theme.palette.primary.text,
+  backgroundColor: theme.palette.primary.background,
+});
 
-/** Override browser default styles */
 globalStyle(
   'input[type="email"], input[type="text"], input[type="password"], select',
   {
@@ -108,6 +112,14 @@ globalStyle('button, input[type="submit"]', {
   border: "none",
   borderRadius: "0.25rem",
   cursor: "pointer",
+});
+
+globalStyle("ul li", {
+  paddingLeft: "0.5rem",
+});
+
+globalStyle("ul li::marker", {
+  content: "›",
 });
 
 globalStyle("*", {
