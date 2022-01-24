@@ -85,10 +85,6 @@ globalStyle("a", {
   color: theme.palette.primary.background,
   textDecoration: "none",
 });
-globalStyle("a:hover", {
-  color: theme.palette.primary.text,
-  backgroundColor: theme.palette.primary.background,
-});
 
 globalStyle(
   'input[type="email"], input[type="text"], input[type="password"], select',
