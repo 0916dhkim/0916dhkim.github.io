@@ -13,8 +13,8 @@ import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { languageSchema } from "@0916dhkim/core/types";
+import { supabase } from "@0916dhkim/core/supabase";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core/supabase";
 
 const getDraftResponse = z.object({
   draft: z.object({
@@ -50,7 +50,6 @@ function useDebounceQueue(waitFor: number) {
 
 const Draft: NextPage = () => {
   const router = useRouter();
-  const supabase = useSupabase();
   const enqueueCallback = useDebounceQueue(500);
 
   const [draft, setDraft] = useState<GetDraftResponse["draft"] | null>(null);
@@ -87,7 +86,7 @@ const Draft: NextPage = () => {
         console.error(e);
       }
     })(); // Async IIFE
-  }, [router, supabase]);
+  }, [router]);
 
   const publishDraft = useCallback(
     async (draftId: string) => {
@@ -110,7 +109,7 @@ const Draft: NextPage = () => {
         console.error(e);
       }
     },
-    [router, supabase]
+    [router]
   );
 
   const updateDraft: ComponentProps<typeof DraftForm>["onChange"] = useCallback(
@@ -133,7 +132,7 @@ const Draft: NextPage = () => {
         }
       });
     },
-    [enqueueCallback, supabase]
+    [enqueueCallback]
   );
 
   return (

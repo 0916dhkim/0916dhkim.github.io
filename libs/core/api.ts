@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 import { User } from "@supabase/supabase-js";
-import { getUser } from "./supabase";
+import { supabase } from "./supabase";
 
 export function withUser(
   handler: (
@@ -20,7 +20,7 @@ export function withUser(
     }
 
     const token = auth.replace(/^Bearer /, "");
-    const user = await getUser(token);
+    const { user } = await supabase.auth.api.getUser(token);
 
     if (user === null) {
       return res.status(403).json({ message: "Authentication failed.", user });

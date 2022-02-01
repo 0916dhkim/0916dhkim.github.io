@@ -3,8 +3,8 @@ import * as styles from "./Layout.css";
 import Head from "next/head";
 import Navbar from "./Navbar";
 import React from "react";
+import { supabase } from "@0916dhkim/core/supabase";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core/supabase";
 
 const PUBLIC_PATHS = ["/login", "/signup"];
 
@@ -13,7 +13,6 @@ const PUBLIC_PATHS = ["/login", "/signup"];
  * Ignored on public pages.
  */
 function useRedirectUnauthorized() {
-  const supabase = useSupabase();
   const router = useRouter();
 
   if (

@@ -6,8 +6,8 @@ import { draftSchema, postSchema } from "@0916dhkim/core/types";
 
 import Link from "next/link";
 import { prisma } from "@0916dhkim/prisma";
+import { supabase } from "@0916dhkim/core/supabase";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core/supabase";
 
 const createDraftResponse = z.object({
   draft: z.object({
@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 const Home: NextPage<Props> = ({ posts, drafts }) => {
-  const supabase = useSupabase();
   const router = useRouter();
 
   const createDraft = async () => {

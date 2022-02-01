@@ -7,8 +7,8 @@ import DraftForm from "../../components/DraftForm";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { languageSchema } from "@0916dhkim/core/types";
+import { supabase } from "@0916dhkim/core/supabase";
 import { useRouter } from "next/router";
-import { useSupabase } from "@0916dhkim/core/supabase";
 
 const getPostResponse = z.object({
   post: z.object({
@@ -24,7 +24,6 @@ type GetPostResponse = z.infer<typeof getPostResponse>;
 
 const PostPage: NextPage = () => {
   const router = useRouter();
-  const supabase = useSupabase();
 
   const [post, setPost] = useState<GetPostResponse["post"] | null>(null);
 
@@ -50,7 +49,7 @@ const PostPage: NextPage = () => {
         console.error(e);
       }
     })(); // Async IIFE
-  }, [router, supabase]);
+  }, [router]);
 
   const updatePost = useCallback(
     async (postId: string, data) => {
@@ -71,7 +70,7 @@ const PostPage: NextPage = () => {
         console.error(e);
       }
     },
-    [router, supabase]
+    [router]
   );
 
   return (
