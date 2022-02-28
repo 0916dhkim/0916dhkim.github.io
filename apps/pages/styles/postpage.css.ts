@@ -51,3 +51,6 @@ globalStyle(`${markdown} pre`, {
   overflowX: "auto",
   boxShadow: theme.shadow,
 });
+globalStyle(`${markdown} img`, {
+  width: "100%",
+});
