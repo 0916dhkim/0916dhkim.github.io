@@ -1,14 +1,23 @@
-import * as styles from "../../styles/postpage.css";
 import * as z from "zod";
 
 import React, { useCallback, useEffect, useState } from "react";
 
-import DraftForm from "../../components/DraftForm";
+import { DraftForm } from "@blog-monorepo/ui";
+import { Post } from "@blog-monorepo/prisma";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { languageSchema } from "@0916dhkim/core/types";
-import { supabase } from "@0916dhkim/core/supabase";
+import { languageSchema } from "@blog-monorepo/types";
+import { supabase } from "@blog-monorepo/supabase";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+
+const Main = styled.main({
+  alignSelf: "stretch",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  gap: "1rem",
+});
 
 const getPostResponse = z.object({
   post: z.object({
@@ -52,7 +61,10 @@ const PostPage: NextPage = () => {
   }, [router]);
 
   const updatePost = useCallback(
-    async (postId: string, data) => {
+    async (
+      postId: string,
+      data: Omit<Post, "id" | "createdAt" | "updatedAt">
+    ) => {
       try {
         const response = await fetch(`/api/post/${postId}`, {
           method: "PUT",
@@ -74,14 +86,14 @@ const PostPage: NextPage = () => {
   );
 
   return (
-    <main className={styles.main}>
+    <Main>
       <h1>Edit Post</h1>
       {post ? (
         <DraftForm initialValues={post} onSubmit={updatePost} />
       ) : (
         <p>Loading...</p>
       )}
-    </main>
+    </Main>
   );
 };
 

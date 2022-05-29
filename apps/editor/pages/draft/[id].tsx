@@ -1,5 +1,14 @@
-import * as styles from "../../styles/draftpage.css";
 import * as z from "zod";
+
+import styled from "@emotion/styled";
+
+const Main = styled.main({
+  alignSelf: "stretch",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  gap: "1rem",
+});
 
 import React, {
   ComponentProps,
@@ -9,11 +18,12 @@ import React, {
   useState,
 } from "react";
 
-import DraftForm from "../../components/DraftForm";
+import { Post } from "@blog-monorepo/prisma";
+import { DraftForm } from "@blog-monorepo/ui";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { languageSchema } from "@0916dhkim/core/types";
-import { supabase } from "@0916dhkim/core/supabase";
+import { languageSchema } from "@blog-monorepo/types";
+import { supabase } from "@blog-monorepo/supabase";
 import { useRouter } from "next/router";
 
 const getDraftResponse = z.object({
@@ -113,7 +123,7 @@ const Draft: NextPage = () => {
   );
 
   const updateDraft: ComponentProps<typeof DraftForm>["onChange"] = useCallback(
-    (draftId, data) => {
+    (draftId: string, data: Omit<Post, "id" | "createdAt" | "updatedAt">) => {
       enqueueCallback(async () => {
         try {
           const response = await fetch(`/api/draft/${draftId}`, {
@@ -136,7 +146,7 @@ const Draft: NextPage = () => {
   );
 
   return (
-    <main className={styles.main}>
+    <Main>
       <h1>Edit Draft</h1>
       {draftFormValues ? (
         <DraftForm
@@ -147,7 +157,7 @@ const Draft: NextPage = () => {
       ) : (
         <p>Loading...</p>
       )}
-    </main>
+    </Main>
   );
 };
 

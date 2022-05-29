@@ -1,12 +1,11 @@
-import * as styles from "../styles/home.css";
 import * as z from "zod";
 
 import type { GetServerSideProps, NextPage } from "next";
-import { draftSchema, postSchema } from "@0916dhkim/core/types";
+import { draftSchema, postSchema } from "@blog-monorepo/types";
+import { prisma } from "@blog-monorepo/prisma";
 
 import Link from "next/link";
-import { prisma } from "@0916dhkim/prisma";
-import { supabase } from "@0916dhkim/core/supabase";
+import { supabase } from "@blog-monorepo/supabase";
 import { useRouter } from "next/router";
 
 const createDraftResponse = z.object({
@@ -58,7 +57,7 @@ const Home: NextPage<Props> = ({ posts, drafts }) => {
   };
 
   return (
-    <main className={styles.home}>
+    <main>
       <button onClick={createDraft}>New draft</button>
       <h1>Drafts</h1>
       <ul>

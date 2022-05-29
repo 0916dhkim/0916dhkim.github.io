@@ -1,9 +1,0 @@
-{
-  "name": "@0916dhkim/prisma",
-  "version": "0.0.0",
-  "main": "src/index.ts",
-  "dependencies": {
-    "@prisma/client": "^3.7.0",
-    "prisma": "^3.7.0"
-  }
-}

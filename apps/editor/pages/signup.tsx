@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { supabase } from "@0916dhkim/core/supabase";
+import { supabase } from "@blog-monorepo/supabase";
 import { useRouter } from "next/router";
 
 const Signup: NextPage = () => {

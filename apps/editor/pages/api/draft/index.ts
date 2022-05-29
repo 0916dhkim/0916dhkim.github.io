@@ -1,9 +1,9 @@
 import * as z from "zod";
 
-import { mapHandler, withUser } from "@0916dhkim/core/api";
+import { mapHandler, withUser } from "@blog-monorepo/api-helpers";
 
-import { languageSchema } from "@0916dhkim/core/types";
-import { prisma } from "@0916dhkim/prisma";
+import { languageSchema } from "@blog-monorepo/types";
+import { prisma } from "@blog-monorepo/prisma";
 
 const createDraftSchema = z.object({
   title: z.string(),
