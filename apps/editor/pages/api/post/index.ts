@@ -1,8 +1,8 @@
 import * as z from "zod";
 
-import { mapHandler, withUser } from "@0916dhkim/core/api";
+import { mapHandler, withUser } from "@blog-monorepo/api-helpers";
 
-import { prisma } from "@0916dhkim/prisma";
+import { prisma } from "@blog-monorepo/prisma";
 
 const createPostSchema = z.object({
   draftId: z.string(),

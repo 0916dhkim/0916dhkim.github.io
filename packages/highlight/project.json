@@ -1,0 +1,42 @@
+{
+  "root": "packages/highlight",
+  "sourceRoot": "packages/highlight/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/highlight",
+        "main": "packages/highlight/src/index.ts",
+        "tsConfig": "packages/highlight/tsconfig.lib.json",
+        "assets": [
+          "packages/highlight/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/highlight/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/packages/highlight"
+      ],
+      "options": {
+        "jestConfig": "packages/highlight/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
