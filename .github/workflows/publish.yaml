@@ -1,0 +1,22 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3
+      - uses: actions/setup-node@3
+        with:
+          node-version: 16
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm build
+      - name: Deploy pages
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: dist
